@@ -1,0 +1,40 @@
+version: '3.7'
+services:
+    hugging_face:
+        container_name: hugging_face_docker
+        build: 
+            context: .
+        image: hugging-face-docker
+        network_mode: "host"
+        restart: unless-stopped                 # Restart the container unless manually stopped
+        volumes:
+          - /tmp/.X11-unix:/tmp/.X11-unix:rw    # GUI related
+          - type: bind                          # Mount Persistent Directory   
+            source: ./shared_folder
+            target: /app
+          - type: bind                          # Mount Persistent Directory   
+            source: ../turtlebot_docker/Noetic_env/turtlebot_docker_shared/
+            target: /app/image
+        environment:
+            - PYTHONUNBUFFERED=1
+            - DISPLAY                           # GUI related
+            - QT_X11_NO_MITSHM=1                # GUI related            
+
+        privileged: true                        # GUI related                       
+
+        stdin_open: true # docker run -i
+        tty: true        # docker run -t
+
+    hugging_face-win:
+        extends:
+            service: hugging_face
+        environment:
+            - DISPLAY=host.docker.internal:0.0  # GUI related
+
+    hugging_face-nvidia:
+        extends:
+            service: hugging_face
+        environment:
+            - NVIDIA_VISIBLE_DEVICES=all        # GUI related
+            - NVIDIA_DRIVER_CAPABILITIES=all    # GUI related
+        runtime: nvidia  
