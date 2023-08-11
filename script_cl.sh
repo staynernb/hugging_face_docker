@@ -11,6 +11,8 @@ done
 
 echo "Sendpoint: $sendpoint";
 
+id_turtlebot_docker='3a990da0f29cc4efe342dc89dafee097abeb46e36392238923971213ed8793d4'
+id_huggingface_docker='dc7b02b50fb4af3166360844282cb658147c95ca4d6b80904219c5c757d60be5'
 
 while :
 do
@@ -22,25 +24,25 @@ do
         echo "How many degrees I should rotate (clockwise): "
         read degrees
 
-        docker exec -it e561e9f141e32d6a4b561f237eddb36c198079457acf64d0c19260cd9eaab1c1 /bin/bash -c "
+        docker exec -it $id_turtlebot_docker /bin/bash -c "
                 . /opt/ros/noetic/setup.bash && 
                 . /home/rosuser/catkin_ws/devel/setup.bash && 
                 export ROS_MASTER_URI=http://10.100.48.7:11311 &&
                 rosrun beginner_tutorials navigation.py $degrees" 
     else
 
-        docker exec -it e561e9f141e32d6a4b561f237eddb36c198079457acf64d0c19260cd9eaab1c1 /bin/bash -c "
+        docker exec -it $id_turtlebot_docker /bin/bash -c "
             . /opt/ros/noetic/setup.bash && 
             . /home/rosuser/catkin_ws/devel/setup.bash && 
             export ROS_MASTER_URI=http://10.100.48.7:11311 &&
             rosrun beginner_tutorials listener.py" 
 
-        docker exec -it dd01e84f8bcb2579d3df7380a874611c49cbd1536087585e6fa08984d79ae6f6 python /app/zero_shot.py $text
+        docker exec -it $id_huggingface_docker python /app/zero_shot.py $text
         theta=$?
 
         if [ $sendpoint == "true" ]; then
             echo "Sending Goal"
-            docker exec -it e561e9f141e32d6a4b561f237eddb36c198079457acf64d0c19260cd9eaab1c1 /bin/bash -c "
+            docker exec -it $id_turtlebot_docker /bin/bash -c "
                 . /opt/ros/noetic/setup.bash && 
                 . /home/rosuser/catkin_ws/devel/setup.bash && 
                 export ROS_MASTER_URI=http://10.100.48.7:11311 &&
