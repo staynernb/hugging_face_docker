@@ -26,22 +26,10 @@ Make sure that u also cloned the turtlebot docker project to the same folder tha
 docker compose run hugging_face bash
 ```
 
-*or if you want to use the GPU Nvidia graphics (if your computer have a nvidia board)*
 
+To run the scripts you need to get the id of the docker, so run the command below instead
 ```
-docker compose run hugging_face-nvidia bash
-```
-
-*If you are using windows run:*
-
-```
-docker compose run hugging_face-win bash
-```
-
-*or windows with nvidia*
-
-```
-docker compose run hugging_face-win-nvidia bash
+docker compose run -d hugging_face bash
 ```
 
 ## Script to run 

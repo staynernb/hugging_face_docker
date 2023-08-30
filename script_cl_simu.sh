@@ -11,8 +11,8 @@ done
 
 echo "Sendpoint: $sendpoint";
 
-id_turtlebot_docker='3a990da0f29cc4efe342dc89dafee097abeb46e36392238923971213ed8793d4'
-id_huggingface_docker='dc7b02b50fb4af3166360844282cb658147c95ca4d6b80904219c5c757d60be5'
+id_turtlebot_docker='576c09022dcbb78037a7db60c38ca11f2fa42fe108c6a1b72536c2ed210260c1'
+id_huggingface_docker='56a4b691e9c9ebd5b1df84595e3eb236138776efadf1bb61c99c1964433a005f'
 
 while :
 do

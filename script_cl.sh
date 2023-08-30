@@ -11,9 +11,9 @@ done
 
 echo "Sendpoint: $sendpoint";
 
-id_turtlebot_docker='3a990da0f29cc4efe342dc89dafee097abeb46e36392238923971213ed8793d4'
-id_huggingface_docker='dc7b02b50fb4af3166360844282cb658147c95ca4d6b80904219c5c757d60be5'
-
+id_turtlebot_docker='a4fb8eaeb7482e991e8c2e5ccca5bfd3dcb940d7f23007f8e72642f3f6c0ebef'
+id_huggingface_docker='82ac9077583efeff7fa2e114fe203a9315d63674866fbea12da98a748cc5cb71'
+a
 while :
 do
     echo -e "\nWrite the text request: "
@@ -27,14 +27,14 @@ do
         docker exec -it $id_turtlebot_docker /bin/bash -c "
                 . /opt/ros/noetic/setup.bash && 
                 . /home/rosuser/catkin_ws/devel/setup.bash && 
-                export ROS_MASTER_URI=http://10.100.48.7:11311 &&
+                export ROS_MASTER_URI=http://10.0.0.107:11311 &&
                 rosrun beginner_tutorials navigation.py $degrees" 
     else
 
         docker exec -it $id_turtlebot_docker /bin/bash -c "
             . /opt/ros/noetic/setup.bash && 
             . /home/rosuser/catkin_ws/devel/setup.bash && 
-            export ROS_MASTER_URI=http://10.100.48.7:11311 &&
+            export ROS_MASTER_URI=http://10.0.0.107:11311 &&
             rosrun beginner_tutorials listener.py" 
 
         docker exec -it $id_huggingface_docker python /app/zero_shot.py $text
@@ -45,7 +45,7 @@ do
             docker exec -it $id_turtlebot_docker /bin/bash -c "
                 . /opt/ros/noetic/setup.bash && 
                 . /home/rosuser/catkin_ws/devel/setup.bash && 
-                export ROS_MASTER_URI=http://10.100.48.7:11311 &&
+                export ROS_MASTER_URI=http://10.0.0.107:11311 &&
                 rosrun beginner_tutorials gotoapoint.py $theta" 
         fi
     fi    
